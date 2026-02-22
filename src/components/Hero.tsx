@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react';
 
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useI18n } from '../hooks/useI18n';
+import { profileData } from '../data/profile';
 
 export function Hero() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
-    const { t } = useI18n();
+    const { t, lang } = useI18n();
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // Simple starfield animation
@@ -124,14 +125,14 @@ export function Hero() {
                 <p className="text-indigo-400 font-mono tracking-widest mb-4">
                     01 // PORTFOLIO
                 </p>
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold tracking-tighter leading-[1.1] mb-6">
-                    SAKKARAD<br />
+                <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-sans font-bold tracking-tighter leading-[1.1] mb-6">
+                    {profileData.name.en.split(' ')[0].toUpperCase()}<br />
                     <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 via-purple-400 to-teal-400">
-                        UDOMSIN (CHRIS)
+                        {profileData.name.en.split(' ').slice(1).join(' ').toUpperCase()}
                     </span>
                 </h1>
 
-                <p className="mt-4 max-w-2xl text-lg md:text-xl text-slate-400 leading-relaxed font-sans" dangerouslySetInnerHTML={{ __html: t('hero.subtitle') }} />
+                <p className="mt-4 max-w-2xl text-lg md:text-xl text-slate-400 leading-relaxed font-sans" dangerouslySetInnerHTML={{ __html: profileData.headline[lang] }} />
 
                 <div className="mt-12 flex flex-col sm:flex-row gap-6">
                     <a href="#projects" className="group relative px-8 py-4 bg-white text-black font-semibold overflow-hidden transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] inline-flex items-center justify-center">

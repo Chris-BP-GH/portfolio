@@ -1,12 +1,15 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useI18n } from '../hooks/useI18n';
-
+import { skillsData } from '../data/skills';
 
 export function Skills() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
-    const { t } = useI18n();
+    const { t, lang } = useI18n();
 
-    const skillCategories = t('skills.categories');
+    const skillCategories = skillsData.map(category => ({
+        title: category.title[lang],
+        skills: category.skills
+    }));
 
     return (
         <section id="skills" className="py-24 md:py-32 relative">

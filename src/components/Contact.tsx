@@ -1,14 +1,15 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import { Mail, Github, Linkedin, Copy, Check } from 'lucide-react';
+import { Mail, Github, Linkedin, Copy, Check, MapPin, Phone } from 'lucide-react';
 import { useState } from 'react';
 import { useI18n } from '../hooks/useI18n';
+import { profileData } from '../data/profile';
 
 export function Contact() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.2 });
     const [copied, setCopied] = useState(false);
-    const { t } = useI18n();
+    const { t, lang } = useI18n();
 
-    const email = 'hello@sakkarad.demo'; // Placeholder demo email
+    const email = profileData.contact.email;
 
     const handleCopy = () => {
         navigator.clipboard.writeText(email);
@@ -31,9 +32,20 @@ export function Contact() {
                         {t('contact.title')}
                     </h2>
 
-                    <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-                        {t('contact.description')}
+                    <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+                        {t('contact.subtitle')}
                     </p>
+
+                    <div className="flex flex-col items-center gap-3 mb-10 text-slate-400 font-mono text-sm">
+                        <div className="flex items-center gap-2">
+                            <MapPin size={16} className="text-indigo-400" />
+                            <span>{profileData.contact.location[lang]}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Phone size={16} className="text-teal-400" />
+                            <span>{profileData.contact.phone}</span>
+                        </div>
+                    </div>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
                         <a

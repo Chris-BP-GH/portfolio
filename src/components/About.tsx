@@ -1,12 +1,13 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useI18n } from '../hooks/useI18n';
+import { profileData } from '../data/profile';
 
 export function About() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.2 });
-    const { t } = useI18n();
+    const { t, lang } = useI18n();
 
     // Fetch translated build chips directly:
-    const buildChips: string[] = t('about.buildChips');
+    const buildChips: string[] = profileData.buildChips[lang];
 
     return (
         <section id="about" className="py-24 md:py-32 relative">
@@ -29,9 +30,7 @@ export function About() {
 
                         {/* Right: Content */}
                         <div className="md:w-2/3 space-y-8 text-slate-400 leading-relaxed text-lg">
-                            <p>{t('about.p1')}</p>
-
-                            <p dangerouslySetInnerHTML={{ __html: t('about.p2') }} />
+                            <p dangerouslySetInnerHTML={{ __html: profileData.about[lang] }} />
 
                             <div className="pt-6 border-t border-white/10">
                                 <h3 className="text-white font-mono text-sm tracking-widest uppercase mb-6">{t('about.whatIBuild')}</h3>
@@ -50,15 +49,15 @@ export function About() {
                             {/* Stats Placeholders */}
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8">
                                 <div>
-                                    <div className="text-4xl font-bold text-white mb-1">10+</div>
+                                    <div className="text-4xl font-bold text-white mb-1">3+</div>
                                     <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">{t('about.stats.years')}</div>
                                 </div>
                                 <div>
-                                    <div className="text-4xl font-bold text-white mb-1">40+</div>
+                                    <div className="text-4xl font-bold text-white mb-1">10+</div>
                                     <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">{t('about.stats.projects')}</div>
                                 </div>
                                 <div>
-                                    <div className="text-4xl font-bold text-white mb-1">15+</div>
+                                    <div className="text-4xl font-bold text-white mb-1">5+</div>
                                     <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">{t('about.stats.deployments')}</div>
                                 </div>
                                 <div>

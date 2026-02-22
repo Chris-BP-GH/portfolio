@@ -1,14 +1,19 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useI18n } from '../hooks/useI18n';
-
-
+import { experienceData } from '../data/experience';
 
 export function Experience() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
-    const { t } = useI18n();
+    const { t, lang } = useI18n();
 
     // Use translations for the timeline directly to ensure reactivity on language change
-    const timelineData = t('experience.timeline');
+    const timelineData = experienceData.map(item => ({
+        period: item.period[lang],
+        role: item.role[lang],
+        company: item.company[lang],
+        summary: item.summary[lang],
+        bullets: item.bullets[lang]
+    }));
 
     return (
         <section id="experience" className="py-24 md:py-32 relative bg-[#060606]">
