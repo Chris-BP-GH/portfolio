@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
 
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { useI18n } from '../hooks/useI18n';
 
 export function Hero() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+    const { t } = useI18n();
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // Simple starfield animation
@@ -107,7 +109,7 @@ export function Hero() {
     }, []);
 
     return (
-        <section id="home" className="relative relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <section id="home" className="relative h-screen w-full flex items-center justify-center overflow-hidden">
             {/* Canvas Background */}
             <canvas
                 ref={canvasRef}
@@ -124,31 +126,29 @@ export function Hero() {
                 </p>
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold tracking-tighter leading-[1.1] mb-6">
                     SAKKARAD<br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-teal-400">
+                    <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 via-purple-400 to-teal-400">
                         UDOMSIN (CHRIS)
                     </span>
                 </h1>
 
-                <p className="mt-4 max-w-2xl text-lg md:text-xl text-slate-400 leading-relaxed font-sans">
-                    Dev who builds across <span className="text-white">Robotics/AMR</span>, Web Apps, Mobile Apps, Factory Systems, POS, and custom software.
-                </p>
+                <p className="mt-4 max-w-2xl text-lg md:text-xl text-slate-400 leading-relaxed font-sans" dangerouslySetInnerHTML={{ __html: t('hero.subtitle') }} />
 
                 <div className="mt-12 flex flex-col sm:flex-row gap-6">
                     <a href="#projects" className="group relative px-8 py-4 bg-white text-black font-semibold overflow-hidden transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] inline-flex items-center justify-center">
-                        <span className="relative z-10 uppercase tracking-wider font-mono text-sm">Explore Work</span>
+                        <span className="relative z-10 uppercase tracking-wider font-mono text-sm">{t('hero.ctaProjects')}</span>
                         <div className="absolute inset-0 bg-indigo-500 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 mix-blend-difference"></div>
                     </a>
 
                     <a href="#contact" className="group px-8 py-4 border border-white/20 text-white font-semibold transition-all duration-300 hover:bg-white/5 hover:border-white/40 inline-flex items-center justify-center uppercase tracking-wider font-mono text-sm glass-panel-hover">
-                        Contact Me
+                        {t('hero.ctaContact')}
                     </a>
                 </div>
             </div>
 
             {/* Scroll Indicator */}
             <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
-                <span className="text-xs uppercase tracking-[0.3em] font-mono text-slate-400">Scroll</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-slate-400 to-transparent animate-pulse"></div>
+                <span className="text-xs uppercase tracking-[0.3em] font-mono text-slate-400">{t('hero.scroll')}</span>
+                <div className="w-px h-12 bg-linear-to-b from-slate-400 to-transparent animate-pulse"></div>
             </div>
         </section>
     );

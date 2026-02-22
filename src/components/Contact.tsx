@@ -1,10 +1,12 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { Mail, Github, Linkedin, Copy, Check } from 'lucide-react';
 import { useState } from 'react';
+import { useI18n } from '../hooks/useI18n';
 
 export function Contact() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.2 });
     const [copied, setCopied] = useState(false);
+    const { t } = useI18n();
 
     const email = 'hello@sakkarad.demo'; // Placeholder demo email
 
@@ -23,14 +25,14 @@ export function Contact() {
                         }`}
                 >
                     <p className="text-indigo-400 font-mono tracking-widest mb-4 uppercase text-sm">
-                        06 // NEXT STEPS
+                        06 // {t('contact.titlePrefix')}
                     </p>
                     <h2 className="text-5xl md:text-7xl font-sans font-bold tracking-tight mb-8">
-                        Let's Build Together.
+                        {t('contact.title')}
                     </h2>
 
                     <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-                        Whether you need a dynamic frontend, an AMR control dashboard, or a complete system architecture—my inbox is always open.
+                        {t('contact.description')}
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
@@ -39,7 +41,7 @@ export function Contact() {
                             className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-mono tracking-wider transition-colors inline-flex items-center justify-center gap-3"
                         >
                             <Mail size={18} />
-                            SEND EMAIL
+                            {t('contact.sendEmail')}
                         </a>
 
                         <button
@@ -47,7 +49,7 @@ export function Contact() {
                             className="w-full sm:w-auto px-8 py-4 border border-white/20 hover:bg-white/5 text-white font-mono tracking-wider transition-colors inline-flex items-center justify-center gap-3 relative"
                         >
                             {copied ? <Check size={18} className="text-teal-400" /> : <Copy size={18} />}
-                            {copied ? 'COPIED!' : 'COPY EMAIL'}
+                            {copied ? t('contact.copied') : t('contact.copyEmail')}
                         </button>
                     </div>
 

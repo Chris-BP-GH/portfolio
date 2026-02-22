@@ -3,11 +3,13 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { projects, type Project } from '../data/projects';
 import { ProjectCard } from './ProjectCard';
 import { Modal } from './Modal';
+import { useI18n } from '../hooks/useI18n';
 
 const categories = ['All', 'Robotics / AMR', 'Web App', 'Mobile App', 'Factory / Internal Systems', 'POS', 'Other'];
 
 export function Projects() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+    const { t } = useI18n();
     const [activeCategory, setActiveCategory] = useState('All');
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -24,9 +26,9 @@ export function Projects() {
                         }`}
                 >
                     <div className="mb-12">
-                        <h2 className="text-4xl md:text-5xl font-sans font-bold tracking-tight mb-4">
-                            <span className="text-purple-400 font-mono text-lg block mb-2 opacity-80 tracking-widest">03 // SELECTED WORK</span>
-                            Featured Projects.
+                        <h2 className="text-4xl md:text-5xl font-sans font-bold tracking-tight mb-4 text-white">
+                            <span className="text-purple-400 font-mono text-lg block mb-2 opacity-80 tracking-widest">03 // {t('projects.titlePrefix')}</span>
+                            {t('projects.title')}
                         </h2>
                         <div className="w-12 h-1 bg-purple-500 mt-6"></div>
                     </div>
@@ -37,13 +39,13 @@ export function Projects() {
                             <button
                                 key={category}
                                 onClick={() => setActiveCategory(category)}
-                                className={`px-4 py-2 rounded-full text-sm font-mono tracking-wider transition-all duration-300 \${
-                  activeCategory === category 
-                    ? 'bg-white text-black font-bold shadow-[0_0_15px_rgba(255,255,255,0.3)]' 
-                    : 'bg-[#0a0a0a] border border-white/10 text-slate-400 hover:text-white hover:border-white/30'
-                }`}
+                                className={`px-4 py-2 rounded-full text-sm font-mono tracking-wider transition-all duration-300 ${
+                                    activeCategory === category 
+                                        ? 'bg-white text-black font-bold shadow-[0_0_15px_rgba(255,255,255,0.3)]' 
+                                        : 'bg-bg-surface border border-white/10 text-slate-400 hover:text-white hover:border-white/30'
+                                }`}
                             >
-                                {category}
+                                {category === 'All' ? t('projects.filterAll') : category}
                             </button>
                         ))}
                     </div>
@@ -62,7 +64,7 @@ export function Projects() {
                         </div>
                     ) : (
                         <div className="py-20 text-center border focus-within:ring-white border-dashed border-white/10 mx-auto w-full text-slate-500 font-mono">
-                            <p>No projects found in this category.</p>
+                            <p>{t('projects.noProjects')}</p>
                         </div>
                     )}
 

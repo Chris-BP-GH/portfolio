@@ -1,6 +1,7 @@
 import { X, ExternalLink, Github } from 'lucide-react';
 import type { Project } from '../data/projects';
 import { useEffect, useRef } from 'react';
+import { useI18n } from '../hooks/useI18n';
 
 interface ModalProps {
     project: Project | null;
@@ -10,6 +11,7 @@ interface ModalProps {
 
 export function Modal({ project, isOpen, onClose }: ModalProps) {
     const modalRef = useRef<HTMLDivElement>(null);
+    const { lang, t } = useI18n();
 
     // Focus trap & escape key handling
     useEffect(() => {
@@ -45,7 +47,7 @@ export function Modal({ project, isOpen, onClose }: ModalProps) {
         >
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-[#030303]/90 backdrop-blur-md transition-opacity"
+                className="fixed inset-0 bg-bg-base/90 backdrop-blur-md transition-opacity"
                 aria-hidden="true"
                 onClick={onClose}
             />
@@ -54,7 +56,7 @@ export function Modal({ project, isOpen, onClose }: ModalProps) {
             <div
                 ref={modalRef}
                 tabIndex={-1}
-                className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col focus:outline-none"
+                className="relative bg-bg-surface border border-white/10 w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col focus:outline-none"
             >
                 <div className="absolute top-0 right-0 p-4 z-10">
                     <button
@@ -67,11 +69,11 @@ export function Modal({ project, isOpen, onClose }: ModalProps) {
                 </div>
 
                 {/* Hero Image Section */}
-                <div className={`h-64 sm:h-80 w-full relative \${project.imagePlaceholder} flex justify-center items-center overflow-hidden shrink-0`}>
+                <div className={`h-64 sm:h-80 w-full relative ${project.imagePlaceholder} flex justify-center items-center overflow-hidden shrink-0`}>
                     {/* Decorative pattern placeholder */}
                     <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
                     <h2 className="text-4xl md:text-5xl font-sans font-bold text-white text-center px-6 relative z-10 opacity-50 drop-shadow-lg mix-blend-overlay">
-                        {project.title}
+                        {project.title[lang]}
                     </h2>
                 </div>
 
@@ -83,33 +85,33 @@ export function Modal({ project, isOpen, onClose }: ModalProps) {
                                 {project.category} // {project.year}
                             </span>
                             <h3 id="modal-title" className="text-3xl sm:text-4xl font-sans font-bold text-white">
-                                {project.title}
+                                {project.title[lang]}
                             </h3>
                         </div>
 
                         <div className="flex gap-4 shrink-0">
                             {project.demoUrl && (
                                 <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-white text-black font-semibold font-mono text-sm uppercase tracking-wider hover:bg-indigo-300 transition-colors inline-flex items-center gap-2">
-                                    <ExternalLink size={16} /> Live
+                                    <ExternalLink size={16} /> {t('projects.liveUrl')}
                                 </a>
                             )}
                             {project.githubUrl && (
                                 <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 border border-white/20 text-white font-mono text-sm uppercase tracking-wider hover:bg-white/10 transition-colors inline-flex items-center gap-2">
-                                    <Github size={16} /> source
+                                    <Github size={16} /> {t('projects.source')}
                                 </a>
                             )}
                         </div>
                     </div>
 
                     <p className="text-lg text-slate-300 mb-10 leading-relaxed max-w-3xl">
-                        {project.description}
+                        {project.description[lang]}
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
                         <div>
-                            <h4 className="text-white font-mono uppercase tracking-widest text-sm mb-4 pb-2 border-b border-white/10">Highlights</h4>
+                            <h4 className="text-white font-mono uppercase tracking-widest text-sm mb-4 pb-2 border-b border-white/10">{t('projects.highlights')}</h4>
                             <ul className="space-y-3">
-                                {project.highlights.map((item, i) => (
+                                {project.highlights[lang].map((item: string, i: number) => (
                                     <li key={i} className="flex items-start text-slate-400">
                                         <span className="text-indigo-400 mr-2">▹</span> {item}
                                     </li>
@@ -118,9 +120,9 @@ export function Modal({ project, isOpen, onClose }: ModalProps) {
                         </div>
 
                         <div>
-                            <h4 className="text-white font-mono uppercase tracking-widest text-sm mb-4 pb-2 border-b border-white/10">Responsibilities</h4>
+                            <h4 className="text-white font-mono uppercase tracking-widest text-sm mb-4 pb-2 border-b border-white/10">{t('projects.responsibilities')}</h4>
                             <ul className="space-y-3">
-                                {project.responsibilities.map((item, i) => (
+                                {project.responsibilities[lang].map((item: string, i: number) => (
                                     <li key={i} className="flex items-start text-slate-400">
                                         <span className="text-teal-400 mr-2">▹</span> {item}
                                     </li>
@@ -130,8 +132,8 @@ export function Modal({ project, isOpen, onClose }: ModalProps) {
                     </div>
 
                     <div className="mb-12">
-                        <h4 className="text-white font-mono uppercase tracking-widest text-sm mb-4 pb-2 border-b border-white/10">Result / Impact</h4>
-                        <p className="text-slate-300 italic px-4 border-l-2 border-indigo-500">{project.result}</p>
+                        <h4 className="text-white font-mono uppercase tracking-widest text-sm mb-4 pb-2 border-b border-white/10">{t('projects.result')}</h4>
+                        <p className="text-slate-300 italic px-4 border-l-2 border-indigo-500">{project.result[lang]}</p>
                     </div>
 
                     <div className="flex flex-wrap gap-2 pt-6 border-t border-white/10">

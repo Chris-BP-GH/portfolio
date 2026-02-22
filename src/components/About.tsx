@@ -1,16 +1,12 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-
-const buildChips = [
-    'Robotics / AMR',
-    'Web Apps',
-    'Mobile Apps',
-    'Factory Systems',
-    'POS',
-    'Custom Software'
-];
+import { useI18n } from '../hooks/useI18n';
 
 export function About() {
     const [ref, isVisible] = useIntersectionObserver({ threshold: 0.2 });
+    const { t } = useI18n();
+
+    // Fetch translated build chips directly:
+    const buildChips: string[] = t('about.buildChips');
 
     return (
         <section id="about" className="py-24 md:py-32 relative">
@@ -24,29 +20,21 @@ export function About() {
 
                         {/* Left: Heading */}
                         <div className="md:w-1/3">
-                            <h2 className="text-4xl md:text-5xl font-sans font-bold tracking-tight mb-4">
-                                <span className="text-indigo-400 font-mono text-lg block mb-2 opacity-80 tracking-widest">02 // PROFILE</span>
-                                Explore new frontiers in software.
+                            <h2 className="text-4xl md:text-5xl font-sans font-bold tracking-tight mb-4 text-white">
+                                <span className="text-indigo-400 font-mono text-lg block mb-2 opacity-80 tracking-widest">02 // {t('about.titlePrefix')}</span>
+                                {t('about.title')}
                             </h2>
                             <div className="w-12 h-1 bg-indigo-500 mt-6"></div>
                         </div>
 
                         {/* Right: Content */}
                         <div className="md:w-2/3 space-y-8 text-slate-400 leading-relaxed text-lg">
-                            <p>
-                                I am a senior frontend engineer and UI motion designer with a passion for building
-                                applications that span across the physical and digital worlds. My work covers full-stack
-                                development, robotic fleet management (AMR), point-of-sale systems, and responsive web platforms.
-                            </p>
+                            <p>{t('about.p1')}</p>
 
-                            <p>
-                                I focus on creating <span className="text-white font-medium">immersive, cinematic user experiences</span> that don't compromise
-                                on performance or accessibility. Whether it's routing fleets of robots on a factory floor or
-                                crafting a pixel-perfect landing page, I bring systems to life.
-                            </p>
+                            <p dangerouslySetInnerHTML={{ __html: t('about.p2') }} />
 
                             <div className="pt-6 border-t border-white/10">
-                                <h3 className="text-white font-mono text-sm tracking-widest uppercase mb-6">What I Build</h3>
+                                <h3 className="text-white font-mono text-sm tracking-widest uppercase mb-6">{t('about.whatIBuild')}</h3>
                                 <div className="flex flex-wrap gap-3">
                                     {buildChips.map(chip => (
                                         <span
@@ -63,19 +51,19 @@ export function About() {
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8">
                                 <div>
                                     <div className="text-4xl font-bold text-white mb-1">10+</div>
-                                    <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">Years Exp</div>
+                                    <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">{t('about.stats.years')}</div>
                                 </div>
                                 <div>
                                     <div className="text-4xl font-bold text-white mb-1">40+</div>
-                                    <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">Projects</div>
+                                    <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">{t('about.stats.projects')}</div>
                                 </div>
                                 <div>
                                     <div className="text-4xl font-bold text-white mb-1">15+</div>
-                                    <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">Deployments</div>
+                                    <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">{t('about.stats.deployments')}</div>
                                 </div>
                                 <div>
                                     <div className="text-4xl font-bold text-white mb-1">100%</div>
-                                    <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">Passion</div>
+                                    <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">{t('about.stats.passion')}</div>
                                 </div>
                             </div>
 

@@ -8,7 +8,7 @@ import { Contact } from './components/Contact';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#030303] text-slate-300 font-sans selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-bg-base text-slate-300 font-sans selection:bg-indigo-500/30">
       <Nav />
       <main>
         <Hero />
@@ -19,7 +19,7 @@ function App() {
         <Contact />
       </main>
 
-      <footer className="py-8 bg-[#030303] border-t border-white/5 text-center px-6">
+      <footer className="py-8 bg-bg-base border-t border-white/5 text-center px-6">
         <p className="font-mono text-sm tracking-widest text-slate-500 mb-2">
           &copy; {new Date().getFullYear()} SAKKARAD UDOMSIN
         </p>
